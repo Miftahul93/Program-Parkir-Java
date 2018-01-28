@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LaporanPerJenis" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     sum(parkir_data.`total_bayar`) AS parkir_data_total_bayar,
+     jenis_kendaraan.`id_jenis` AS jenis_kendaraan_id_jenis,
+     jenis_kendaraan.`jenis` AS jenis_kendaraan_jenis,
+     jenis_kendaraan.`tarif` AS jenis_kendaraan_tarif
+FROM
+     `jenis_kendaraan` jenis_kendaraan LEFT OUTER JOIN `parkir_data` parkir_data ON jenis_kendaraan.`id_jenis` = parkir_data.`id_jenis`
+GROUP BY jenis_kendaraan.`id_jenis`]]>
+	</queryString>
+	<field name="parkir_data_total_bayar" class="java.lang.Double"/>
+	<field name="jenis_kendaraan_id_jenis" class="java.lang.Integer"/>
+	<field name="jenis_kendaraan_jenis" class="java.lang.String"/>
+	<field name="jenis_kendaraan_tarif" class="java.lang.String"/>
+	<group name="jenis_kendaraan_jenis">
+		<groupExpression><![CDATA[$F{jenis_kendaraan_jenis}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="55" splitType="Stretch">
+			<staticText>
+				<reportElement x="198" y="0" width="239" height="55"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LAPORAN PARKIR BERDASARKAN JENIS KENDARAAN]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="7" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="138" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID JENIS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="0" width="138" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[JENIS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="276" y="0" width="138" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TARIF / JAM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="414" y="0" width="138" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL PENDAPATAN]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="138" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{jenis_kendaraan_id_jenis}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="138" y="0" width="138" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{jenis_kendaraan_jenis}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="276" y="0" width="138" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{jenis_kendaraan_tarif}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0" isBlankWhenNull="true">
+				<reportElement x="414" y="0" width="138" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{parkir_data_total_bayar}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

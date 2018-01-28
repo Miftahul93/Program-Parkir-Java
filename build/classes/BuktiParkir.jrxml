@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BuktiParkir" pageWidth="300" pageHeight="330" columnWidth="260" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nopol" class="java.lang.String"/>
+	<parameter name="lama" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     parkir_data.`id_parkir` AS parkir_data_id_parkir,
+     parkir_data.`nomor_polisi` AS parkir_data_nomor_polisi,
+     parkir_data.`masuk` AS parkir_data_masuk,
+     jenis_kendaraan.`jenis` AS jenis_kendaraan_jenis,
+     parkir_data.`keluar` AS parkir_data_keluar
+FROM
+     `jenis_kendaraan` jenis_kendaraan RIGHT OUTER JOIN `parkir_data` parkir_data ON jenis_kendaraan.`id_jenis` = parkir_data.`id_jenis`
+WHERE
+     parkir_data.`nomor_polisi` = $P{nopol}]]>
+	</queryString>
+	<field name="parkir_data_id_parkir" class="java.lang.Integer"/>
+	<field name="parkir_data_nomor_polisi" class="java.lang.String"/>
+	<field name="parkir_data_masuk" class="java.sql.Timestamp"/>
+	<field name="jenis_kendaraan_jenis" class="java.lang.String"/>
+	<field name="parkir_data_keluar" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="5" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="247" splitType="Stretch">
+			<staticText>
+				<reportElement x="65" y="0" width="147" height="26"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SWALAYAN BONSAI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="38" width="111" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="121" y="38" width="124" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{parkir_data_id_parkir}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="72" width="111" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMOR POLISI]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="121" y="109" width="124" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{jenis_kendaraan_jenis}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="109" width="111" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[JENIS]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="121" y="151" width="124" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{parkir_data_masuk}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="151" width="100" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MASUK]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="121" y="72" width="124" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{nopol}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="185" width="100" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[KELUAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="216" width="100" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LAMA PARKIR]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="121" y="216" width="124" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{lama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="121" y="185" width="124" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{parkir_data_keluar}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="3" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="4" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="1" splitType="Stretch"/>
+	</summary>
+</jasperReport>
